@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "type": "module",
   "main": "index.js",
-  "license": "MIT",
+  "license": "CC0-1.0",
+  "author": "Heroku DevRel <heroku-dev-advocacy@salesforce.com>",
   "scripts": {
     "start": "node index.js",
     "dev": "node --watch index.js",
