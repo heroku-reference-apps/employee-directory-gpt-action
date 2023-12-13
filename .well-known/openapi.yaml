@@ -1,0 +1,69 @@
+openapi: 3.0.0
+info:
+  description: This is a basic API that leverages ChatGPT to perform a smart query of an employee directory database
+  version: "1.0.0"
+  title: Employee Directory Lookup (for ChatGPT Plugin)
+security:
+  - BearerAuth: []
+paths:
+  /search:
+    post:
+      summary: Accepts user prompt relayed from ChatGPT, queries database, returns natural language response with results
+      operationId: query
+      description: Finds results in the employee directory based on the user's natural language request
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: 'Success'
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: 'I found one employee based on what you were looking...'
+        '401':
+          description: 'Unauthorized'
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: 'Unauthorized'
+        '500':
+          description: 'Error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: 'API key for OpenAI is invalid.'
+      requestBody:
+        description: User prompt, relayed from ChatGPT
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: 'I want to find any employees with a first name that starts with "ANDI"'
+components:
+  schemas:
+    UserPrompt:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'I want to find any employees with a first name that starts with "ANDI"'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: 'API key for OpenAI is invalid.'
+  securitySchemes:
+    BearerAuth:
+      description: Service level auth token specified by developer for ChatGPT to send with request
+      type: http
+      scheme: bearer
