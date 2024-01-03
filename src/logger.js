@@ -1,5 +1,5 @@
-import pino from 'pino'
+import pino from 'pino';
 
 export default pino({
-  enabled: process.env.NODE_ENV !== 'test'
-})
+  enabled: process.env.NODE_ENV !== 'test',
+});

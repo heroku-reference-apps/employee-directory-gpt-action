@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   description: This is a basic API that leverages ChatGPT to perform a smart query of an employee directory database
-  version: "1.0.0"
+  version: '1.0.0'
   title: Employee Directory Lookup (for ChatGPT Plugin)
 security:
   - BearerAuth: []
