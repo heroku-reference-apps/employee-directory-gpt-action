@@ -1,4 +1,4 @@
-# OpenAI ChatGPT Plugin: Employee Directory Lookup
+# Employee Directory Lookup - ChatGPT Plugin
 
 This is a Node.js Express API server meant to function as an OpenAI ChatGPT Plugin. It simulates an employee directory querying service. It is meant to be deployed on Heroku.
 

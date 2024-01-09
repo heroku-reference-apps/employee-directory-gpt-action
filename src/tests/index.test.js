@@ -2,7 +2,7 @@ import 'dotenv/config';
 import { jest } from '@jest/globals';
 import request from 'supertest';
 import server from '../index.js';
-import openAI from '../openAI.js';
+import AI from '../ai.js';
 import db from '../db.js';
 import auth from '../auth.js';
 
@@ -10,8 +10,8 @@ const USER_PROMPT = 'Find employees with the first name "Andy"';
 const VALID_PAYLOAD = { message: USER_PROMPT };
 
 auth.verify = jest.fn(() => true);
-openAI.craftQuery = jest.fn();
-openAI.processResult = jest.fn();
+AI.craftQuery = jest.fn();
+AI.processResult = jest.fn();
 db.query = jest.fn(async () => []);
 
 const sendRequest = async (
@@ -41,7 +41,7 @@ describe('API tests', () => {
       });
       test('should not call openAI.craftQuery', async () => {
         await sendRequest(VALID_PAYLOAD);
-        expect(openAI.craftQuery).not.toHaveBeenCalled();
+        expect(AI.craftQuery).not.toHaveBeenCalled();
       });
       test('should return 401', async () => {
         const response = await sendRequest(VALID_PAYLOAD);
@@ -52,7 +52,7 @@ describe('API tests', () => {
       describe('when payload does not have "message" key', () => {
         test('should not call openAI.craftQuery', async () => {
           await sendRequest(payload);
-          expect(openAI.craftQuery).not.toHaveBeenCalled();
+          expect(AI.craftQuery).not.toHaveBeenCalled();
         });
         test('should not call db.query', async () => {
           await sendRequest(payload);
@@ -60,14 +60,14 @@ describe('API tests', () => {
         });
         test('should not call openAI.processResult', async () => {
           await sendRequest(payload);
-          expect(openAI.processResult).not.toHaveBeenCalled();
+          expect(AI.processResult).not.toHaveBeenCalled();
         });
       });
       describe('when payload "message" has no content', () => {
         const payload = { message: '' };
         test('should not call openAI.craftQuery', async () => {
           await sendRequest(payload);
-          expect(openAI.craftQuery).not.toHaveBeenCalled();
+          expect(AI.craftQuery).not.toHaveBeenCalled();
         });
         test('should not call db.query', async () => {
           await sendRequest(payload);
@@ -75,18 +75,18 @@ describe('API tests', () => {
         });
         test('should not call openAI.processResult', async () => {
           await sendRequest(payload);
-          expect(openAI.processResult).not.toHaveBeenCalled();
+          expect(AI.processResult).not.toHaveBeenCalled();
         });
       });
       describe('when payload "message" has content', () => {
         test('should call openAI.craftQuery', async () => {
           await sendRequest(VALID_PAYLOAD);
-          expect(openAI.craftQuery).toHaveBeenCalled();
+          expect(AI.craftQuery).toHaveBeenCalled();
         });
         describe('when openAI.craftQuery returns a value', () => {
           const SQL = 'SELECT * from employees';
           beforeEach(() => {
-            openAI.craftQuery.mockReturnValue(SQL);
+            AI.craftQuery.mockReturnValue(SQL);
           });
           test('should call db.query', async () => {
             await sendRequest(VALID_PAYLOAD);
@@ -96,7 +96,7 @@ describe('API tests', () => {
             test('should not call openAI.processResult', async () => {
               db.query.mockReturnValue('invalid response');
               await sendRequest(VALID_PAYLOAD);
-              expect(openAI.processResult).not.toHaveBeenCalled();
+              expect(AI.processResult).not.toHaveBeenCalled();
             });
           });
           describe('when db.query.return value is an array', () => {
@@ -104,7 +104,7 @@ describe('API tests', () => {
               const QUERY_RESULTS = [];
               db.query.mockReturnValue(QUERY_RESULTS);
               await sendRequest(VALID_PAYLOAD);
-              expect(openAI.processResult).toHaveBeenCalledWith(
+              expect(AI.processResult).toHaveBeenCalledWith(
                 USER_PROMPT,
                 SQL,
                 QUERY_RESULTS

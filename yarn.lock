@@ -1912,6 +1912,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"employee-directory-chatgpt-plugin@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "employee-directory-chatgpt-plugin@workspace:."
+  dependencies:
+    "@jest/globals": "npm:^29.7.0"
+    cors: "npm:^2.8.5"
+    dotenv: "npm:^16.3.1"
+    eslint: "npm:^8.53.0"
+    eslint-config-prettier: "npm:^9.1.0"
+    express: "npm:^4.18.2"
+    husky: "npm:^8.0.3"
+    jest: "npm:^29.7.0"
+    lint-staged: "npm:^15.2.0"
+    openai: "npm:^4.20.1"
+    pg: "npm:^8.11.3"
+    pino: "npm:^8.16.2"
+    prettier: "npm:^3.1.1"
+    supertest: "npm:^6.3.3"
+    swagger-ui-express: "npm:^5.0.0"
+    yaml: "npm:^2.3.4"
+  languageName: unknown
+  linkType: soft
+
 "encodeurl@npm:~1.0.2":
   version: 1.0.2
   resolution: "encodeurl@npm:1.0.2"
@@ -4126,29 +4149,6 @@ __metadata:
   checksum: 4eef7c6abfef697dd4479345a4100c382d73c149d2d56170a54a07418c50816937ad09500e1ed1e79d235989d073a9bade8557122aee24f0576ecde0f392bb6c
   languageName: node
   linkType: hard
-
-"openai-employee-directory-plugin-api@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "openai-employee-directory-plugin-api@workspace:."
-  dependencies:
-    "@jest/globals": "npm:^29.7.0"
-    cors: "npm:^2.8.5"
-    dotenv: "npm:^16.3.1"
-    eslint: "npm:^8.53.0"
-    eslint-config-prettier: "npm:^9.1.0"
-    express: "npm:^4.18.2"
-    husky: "npm:^8.0.3"
-    jest: "npm:^29.7.0"
-    lint-staged: "npm:^15.2.0"
-    openai: "npm:^4.20.1"
-    pg: "npm:^8.11.3"
-    pino: "npm:^8.16.2"
-    prettier: "npm:^3.1.1"
-    supertest: "npm:^6.3.3"
-    swagger-ui-express: "npm:^5.0.0"
-    yaml: "npm:^2.3.4"
-  languageName: unknown
-  linkType: soft
 
 "openai@npm:^4.20.1":
   version: 4.20.1

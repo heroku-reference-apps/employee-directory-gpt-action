@@ -4,7 +4,7 @@ import express from 'express';
 import swaggerUi from 'swagger-ui-express';
 import cors from 'cors';
 import YAML from 'yaml';
-import openAI from './openAI.js';
+import AI from './ai.js';
 import logger from './logger.js';
 import db from './db.js';
 import auth from './auth.js';
@@ -77,7 +77,7 @@ server.post('/search', authMiddleware, async (req, res) => {
   }
   try {
     const userPrompt = req.body.message;
-    const sql = await openAI.craftQuery(userPrompt);
+    const sql = await AI.craftQuery(userPrompt);
     logger.info(`craftQuery response sql: ${sql}`);
 
     let rows = [];
@@ -94,7 +94,7 @@ server.post('/search', authMiddleware, async (req, res) => {
       return;
     }
 
-    const resultsDescribed = await openAI.processResult(userPrompt, sql, rows);
+    const resultsDescribed = await AI.processResult(userPrompt, sql, rows);
 
     logger.info(`results described: ${resultsDescribed}`);
     res.send(resultsDescribed);
