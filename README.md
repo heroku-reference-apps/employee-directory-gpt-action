@@ -1,5 +1,7 @@
 # Employee Directory Lookup - ChatGPT Plugin
 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
 This is a Node.js Express API server meant to function as an OpenAI ChatGPT Plugin. It simulates an employee directory querying service. It is meant to be deployed on Heroku.
 
 ## Setup database

@@ -1,6 +1,7 @@
 {
   "name": "employee-directory-chatgpt-plugin",
   "version": "1.0.0",
+  "description": "A ChatGPT Plugin API allowing employee directory queries using natural language.",
   "type": "module",
   "main": "index.js",
   "license": "CC0-1.0",
