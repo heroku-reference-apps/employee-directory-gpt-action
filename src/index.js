@@ -4,6 +4,7 @@ import express from 'express';
 import swaggerUi from 'swagger-ui-express';
 import cors from 'cors';
 import YAML from 'yaml';
+import filterXSS from 'xss';
 import AI from './ai.js';
 import logger from './logger.js';
 import db from './db.js';
@@ -97,7 +98,7 @@ server.post('/search', authMiddleware, async (req, res) => {
     const resultsDescribed = await AI.processResult(userPrompt, sql, rows);
 
     logger.info(`results described: ${resultsDescribed}`);
-    res.send(resultsDescribed);
+    res.send(filterXSS(resultsDescribed));
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
