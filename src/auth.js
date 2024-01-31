@@ -1,8 +1,8 @@
-const verify = (req) => {
+function verify(req) {
   const authHeader = req.headers.authorization || '';
   const token = authHeader.replace(/^bearer /i, '');
-  return token === process.env.OPENAI_SERVICE_ACCESS_TOKEN;
-};
+  return token === process.env.BEARER_AUTH_API_KEY;
+}
 
 export default {
   verify,

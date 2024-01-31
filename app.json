@@ -1,23 +1,27 @@
 {
-  "name": "Employee Directory - ChatGPT Plugin",
+  "name": "Employee Directory - GPT Action",
   "description": "A ChatGPT Plugin API allowing employee directory queries using natural language.",
-  "repository": "https://github.com/heroku-reference-apps/employee-directory-chatgpt-plugin",
-  "keywords": ["nodejs", "ai", "chatgpt", "openai", "plugin", "postgres"],
+  "repository": "https://github.com/heroku-reference-apps/employee-directory-gpt-action",
+  "keywords": [
+    "nodejs",
+    "ai",
+    "chatgpt",
+    "openai",
+    "gpt",
+    "action",
+    "postgres"
+  ],
   "addons": ["heroku-postgresql:mini"],
-  "environments": {
-    "production": {
-      "env": {
-        "OPENAI_API_KEY": {
-          "required": true
-        },
-        "OPENAI_SERVICE_ACCESS_TOKEN": {
-          "required": true
-        },
-        "OPENAI_GENERATED_ACCESS_TOKEN": {
-          "required": false
-        }
-      }
+  "env": {
+    "OPENAI_API_KEY": {
+      "description": "OpenAI API Key",
+      "required": true
     },
+    "BEARER_API_TOKEN": {
+      "description": "Bearer token for authenticating requests from the GPT Action"
+    }
+  },
+  "environments": {
     "test": {
       "env": {
         "OPENAI_API_KEY": "test_key"

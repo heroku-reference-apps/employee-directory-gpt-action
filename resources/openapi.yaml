@@ -2,9 +2,11 @@ openapi: 3.0.0
 info:
   description: This is a basic API that leverages ChatGPT to perform a smart query of an employee directory database
   version: '1.0.0'
-  title: Employee Directory Lookup (for ChatGPT Plugin)
+  title: Employee Directory Lookup (for GPT Action)
 security:
   - BearerAuth: []
+servers:
+  - url: REPLACE-WITH-DEPLOYED-API-URL
 paths:
   /search:
     post:
@@ -17,17 +19,30 @@ paths:
         '200':
           description: 'Success'
           content:
-            text/plain:
+            application/json:
               schema:
-                type: string
-                example: 'I found one employee based on what you were looking...'
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'I found one employee based on what you were looking...'
         '401':
           description: 'Unauthorized'
           content:
-            text/plain:
+            application/json:
               schema:
-                type: string
-                example: 'Unauthorized'
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: 'Unauthorized'
+                  message:
+                    type: string
+                    example: 'Using bearer auth. API key was either not provided or incorrect.'
+                  statusCode:
+                    type: integer
+                    example: 401
+
         '500':
           description: 'Error'
           content:
@@ -37,7 +52,13 @@ paths:
                 properties:
                   error:
                     type: string
-                    example: 'API key for OpenAI is invalid.'
+                    example: 'Internal Server Error'
+                  message:
+                    type: string
+                    example: 'An error occurred while processing the request.'
+                  statusCode:
+                    type: integer
+                    example: 500
       requestBody:
         description: User prompt, relayed from ChatGPT
         content:
@@ -61,7 +82,13 @@ components:
       properties:
         error:
           type: string
-          example: 'API key for OpenAI is invalid.'
+          example: 'Internal Server Error'
+        message:
+          type: string
+          example: 'An error occurred while processing the request.'
+        statusCode:
+          type: integer
+          example: 500
   securitySchemes:
     BearerAuth:
       description: Service level auth token specified by developer for ChatGPT to send with request

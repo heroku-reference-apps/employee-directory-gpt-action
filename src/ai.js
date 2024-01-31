@@ -15,7 +15,7 @@ const PROMPT = `
 
 const SYSTEM_MESSAGE = { role: 'system', content: PROMPT };
 
-const craftQuery = async (userPrompt) => {
+async function craftQuery(userPrompt) {
   const settings = {
     messages: [SYSTEM_MESSAGE],
     model: CHATGPT_MODEL,
@@ -39,14 +39,14 @@ const craftQuery = async (userPrompt) => {
     content: 'Provide a single SQL query to obtain the desired result.',
   });
 
-  logger.info('craftQuery sending request to openAI');
+  logger.info('craftQuery sending request to OpenAI');
 
   const response = await openai.chat.completions.create(settings);
   const content = JSON.parse(response.choices[0].message.content);
   return content.sql;
-};
+}
 
-const processResult = async (userPrompt, sql, rows) => {
+export async function processResult(userPrompt, sql, rows) {
   const settings = {
     messages: [SYSTEM_MESSAGE],
     model: CHATGPT_MODEL,
@@ -68,11 +68,11 @@ const processResult = async (userPrompt, sql, rows) => {
     content: userMessage,
   });
 
-  logger.info('processResult sending request to openAI');
+  logger.info('processResult sending request to OpenAI');
 
   const response = await openai.chat.completions.create(settings);
-  return response.choices[0].message.content;
-};
+  return response?.choices[0]?.message?.content;
+}
 
 export default {
   craftQuery,
