@@ -35,7 +35,8 @@ const swaggerOptions = {
   url: '/api-docs/openapi.yaml',
 };
 const mountSwagger = (req, _res, next) => {
-  swaggerDocument.servers[0].url = `${req.protocol}://${req.get('host')}`;
+  const protocol = req.headers['x-forwarded-proto'] || req.protocol;
+  swaggerDocument.servers[0].url = `${protocol}://${req.get('host')}`;
   server.use('/api-docs/openapi.yaml', (_req, res) => {
     res.set('Content-Type', 'text/yaml');
     res.send(YAML.stringify(swaggerDocument));
