@@ -31,9 +31,24 @@ const authMiddleware = (req, res, next) => {
 };
 
 // Add OpenAPI Swagger documentation
+const swaggerOptions = {
+  url: '/api-docs/openapi.yaml',
+};
 const mountSwagger = (req, _res, next) => {
   swaggerDocument.servers[0].url = `${req.protocol}://${req.get('host')}`;
-  server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+  server.use('/api-docs/openapi.yaml', (_req, res) => {
+    res.set('Content-Type', 'text/yaml');
+    res.send(YAML.stringify(swaggerDocument));
+  });
+  server.use(
+    '/api-docs',
+    swaggerUi.serveFiles(null, {
+      swaggerOptions,
+    }),
+    swaggerUi.setup(null, {
+      swaggerOptions,
+    })
+  );
   next();
 };
 server.use(mountSwagger);
