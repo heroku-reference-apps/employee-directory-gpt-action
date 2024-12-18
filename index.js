@@ -14,6 +14,6 @@ checkEnvVariable('BEARER_AUTH_API_KEY');
 checkEnvVariable('OPENAI_API_KEY');
 checkEnvVariable('DATABASE_URL');
 
-server.listen(PORT, () => {
+server.listen(PORT, '::', () => {
   console.log(`Server is running on port ${PORT}`);
 });

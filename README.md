@@ -29,8 +29,8 @@ Once your database is set up, you should run the SQL statements found in the fol
 You can do it by running:
 
 ```sh
-heroku pg:psql < data/create_schema.sql
-heroku pg:psql < data/create_records.sql
+heroku pg:psql -f data/create_schema.sql
+heroku pg:psql -f data/create_records.sql
 ```
 
 Once you have the database up and running, Heroku will automatically add a config var called `DATABASE_URL`. This should contain all of the information you need for connecting to the database (in `src/db.js`).
